@@ -12,7 +12,6 @@ setup_db(app)
 CORS(app)
 
 '''
-@TODO uncomment the following line to initialize the datbase
 !! NOTE THIS WILL DROP ALL RECORDS AND START YOUR DB FROM SCRATCH
 !! NOTE THIS MUST BE UNCOMMENTED ON FIRST RUN
 '''
@@ -45,7 +44,6 @@ def get_drinks():
 
 
 '''
-@TODO implement endpoint
     GET /drinks-detail
         it should require the 'get:drinks-detail' permission
         it should contain the drink.long() data representation
@@ -56,19 +54,20 @@ def get_drinks():
 @requires_auth('get:drinks-detail')
 def get_drink_detail(jwt):
     try:
-        data = Drink.query.all()
-        if not data:
-            abort(404)
-        drinks = [drink.long() for drink in data]
-        return jsonify({
-                    'success': True,
-                    'drinks': drinks
-                }), 200
-    except exc.SQLAlchemyError:
-        abort(503)
+        return json.dumps({
+            'success':
+            True,
+            'drinks': [drink.long() for drink in Drink.query.all()]
+        }), 200
+    except:
+        return json.dumps({
+            'success': False,
+            'error': "An error occurred"
+        }), 500
+    
 
 '''
-@TODO implement endpoint
+
     POST /drinks
         it should create a new row in the drinks table
         it should require the 'post:drinks' permission
@@ -97,7 +96,6 @@ def post_drink(jwt):
 
 
 '''
-@TODO implement endpoint
     PATCH /drinks/<id>
         where <id> is the existing model id
         it should respond with a 404 error if <id> is not found
@@ -131,7 +129,6 @@ def update_drink(jwt, id):
 
 
 '''
-@TODO implement endpoint
     DELETE /drinks/<id>
         where <id> is the existing model id
         it should respond with a 404 error if <id> is not found
@@ -176,7 +173,6 @@ def unprocessable(error):
                     }), 422
 
 '''
-@TODO implement error handlers using the @app.errorhandler(error) decorator
     each error handler should return (with approprate messages):
              jsonify({
                     "success": False, 
@@ -193,13 +189,13 @@ def resource_not_found(error):
     }), 404
 
 '''
-@TODO implement error handler for 404
+ error handler for 404
     error handler should conform to general task above 
 '''
 
 
 '''
-@TODO implement error handler for AuthError
+error handler for AuthError
     error handler should conform to general task above 
 '''
 @app.errorhandler(401)
