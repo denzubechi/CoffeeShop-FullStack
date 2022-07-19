@@ -8,10 +8,10 @@ app = Flask(__name__)
 
 
 
-AUTH0_DOMAIN = 'coffeeshopf.us.auth0.com'
+AUTH0_DOMAIN = 'your AUTH_DOMIAN'
 ALGORITHMS = ['RS256']
-API_AUDIENCE = 'coffee'
-CLIENT_ID = 'zzUoxZT1mmHkLHC2eQ15Qa5wkWXkQwRD'
+API_AUDIENCE = 'your audience'
+CLIENT_ID = 'your clientID'
 
 
 ## AuthError Exception
